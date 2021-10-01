@@ -1,0 +1,2 @@
+saved_models/single_bert_fea2.pt filter=lfs diff=lfs merge=lfs -text
+data/glove.6B.100d.txt filter=lfs diff=lfs merge=lfs -text
