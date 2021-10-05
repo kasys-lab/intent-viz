@@ -3,11 +3,8 @@ from sys import modules
 from typing import AsyncIterable
 import numpy as np
 import torch
-import torch.nn as nn
-from transformers import BertTokenizer, BertModel, AdamW
+from transformers import BertTokenizer, BertModel
 
-
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 
 from models import BiAttention, SingleColBertWithFeature
@@ -15,8 +12,8 @@ from feature_extraction.features import extract_column_features
 
 data_file = "./data/input_data.json"
 embed_path = "./data/glove.6B.100d.txt"
-type_model_path = "./saved_models/bi_att_for_col_model.pt"
-column_model_path = "./saved_models/single_bert_fea2.pt"
+type_model_path = "./saved_models/predict_viz_type.pt"
+column_model_path = "./saved_models/predict_viz_columns.pt"
 remove_feature_num = [11, 12, 47, 49, 51]
 Types = {
             0: "Area",
@@ -78,7 +75,7 @@ def main():
     remove_list = {".", ",", "(", ")", "[", "]", "{", "}", "=", "!", "?", "*", ' ', '\t', ";", ":"}
     emb = get_vec_dict(embed_path)
 
-    #### 入力データを配列に変換
+    #### input data process
     with open(data_file, "r") as f:
         jsn = json.load(f)
         visualization_intent = jsn["visualization_intent"]
@@ -89,8 +86,7 @@ def main():
                 one_data.append(value[key])
             data.append(one_data)
 
-    #### 特徴抽出 & 標準化
-    ### fid, field_id, moment_5, moment_7, moment_9
+    #### feture extranciton
     column_features_with_use = extract_column_features(data, 0, 0)
     feature = []
     headers = []
@@ -101,7 +97,7 @@ def main():
     processed_features = get_processed_feature(feature)
         
 
-    #### 単語埋め込み
+    #### word embedding
     embed_data = []
     for header, feature in zip(headers, processed_features[0]):
         head_vec = np.array([0]*100)
@@ -138,9 +134,9 @@ def main():
         embed_title = embed_title + [[0]*100] * (12 - len(embed_title))
     embed_title = torch.Tensor(embed_title)
 
-    #### モデルに入力
+    #### input to model
 
-    #### 視覚化種類の予測
+    #### predict visualization type
     '''
     model input 
     [
@@ -159,7 +155,7 @@ def main():
     output = type_model([embed_title, embed_data])
     predict = torch.max(output.data, 1)[1]
 
-    #### 視覚化列の予測
+    #### predict visualized columns
     '''
     model input 
     title_single_col : titleとheaderのペアのtokenizerの出力(列は30列にpadding)
@@ -193,7 +189,7 @@ def main():
     title_single_col = tokenizer(titles, headers, is_split_into_words=True, pad_to_max_length = True, max_length=30, return_tensors="pt")
     output = column_model(title_single_col, processed_features)
 
-    #### 結果出力
+    #### output results
 
     output = output.tolist()[0][:len(data)]
     data = [(i-min(output)) / (max(output) - min(output)) for i in output]
