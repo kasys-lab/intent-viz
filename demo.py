@@ -3,6 +3,7 @@ from sys import modules
 from typing import AsyncIterable
 import numpy as np
 import torch
+import argparse
 from transformers import BertTokenizer, BertModel
 
 from sklearn.preprocessing import StandardScaler
@@ -10,7 +11,6 @@ from sklearn.preprocessing import StandardScaler
 from models import BiAttention, SingleColBertWithFeature
 from feature_extraction.features import extract_column_features
 
-data_file = "./data/input_data.json"
 embed_path = "./data/glove.6B.100d.txt"
 type_model_path = "./saved_models/predict_viz_type.pt"
 column_model_path = "./saved_models/predict_viz_columns.pt"
@@ -71,6 +71,10 @@ def get_vec_dict(path):
     return vec_dict
 
 def main():
+    parser = argparse.ArgumentParser(description='このプログラムの説明（なくてもよい）')
+    parser.add_argument('arg1')
+    args = parser.parse_args()
+    data_file = args.arg1
 
     remove_list = {".", ",", "(", ")", "[", "]", "{", "}", "=", "!", "?", "*", ' ', '\t', ";", ":"}
     emb = get_vec_dict(embed_path)
@@ -195,7 +199,7 @@ def main():
     data = [(i-min(output)) / (max(output) - min(output)) for i in output]
 
     print("predict visualization type : {} chart".format(Types[predict[0].item()]))
-    print("predict visualizatoin columns percent")
+    print("predict visualized columns percent")
     print("header  :  percent")
     for i, percent in enumerate(data):
         print("{}  :  {}".format(headers[i][0], percent))
