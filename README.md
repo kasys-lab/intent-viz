@@ -5,14 +5,20 @@ Maruta and Kato. Intent-aware Visualization Recommendation for Tabular Data. WIS
 Clone our repository
 ```
 git clone https://github.com/kasys-lab/intent-viz.git
+cd intent-viz
 ```
-### Get large files
+### Download large files
 Our model requires word embedding model and trained model
-#### Get word embedding model
-To get word embedding model, please access https://nlp.stanford.edu/projects/glove/ and download `glove.6B.zip`.
-
+#### Download pre-trained word embedding vector
+To get word embedding model, please download `glove.6B.zip`.
+```
+wget http://downloads.cs.stanford.edu/nlp/data/glove.6B.zip
+unzip glove.6B.zip
+mv glove.6B.100d.txt ./data/
+rm glove*
+```
 And put `glove.6B.100d.txt` file in unzipped `glove.6B.zip` file to `data/`
-#### Get trained model
+#### Download trained model
 To get trained model, please access https://drive.google.com/drive/folders/1G2WTiNGCOzu2W4E3IFB6WT62RJXJkFeZ?usp=sharing and download `predict_vis_columns.pt`.
 
 And put `predict_vis_columns.pt` to `saved_models/`
