@@ -20,12 +20,12 @@ $ poetry install
 ```
 ## Prediction visualizatoin type and visualized columns for input data file
 ```
-$ poerty run python demo.py <data path>
-$ poerty run python demo.py "./data/input_data.json"
+$ poetry run python demo.py <data path>
+$ poetry run python demo.py "./data/input_data.json"
 ```
 
 ### Input data
-json format pair data of a visualization intent and tabular data.
+Json format pair data of a visualization intent and tabular data.
 ```
 {   "visualization_intent": "Population trends in Italy",
     "data": 
@@ -59,7 +59,7 @@ json format pair data of a visualization intent and tabular data.
 }
 ```
 ### Output
-output visualuzation type and visualized column percent
+Output visualuzation type and visualized column percent
 ```
 predict visualization type : Line chart
 predict visualized columns percent
