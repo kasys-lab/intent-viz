@@ -1,12 +1,30 @@
 # intent_viz
 Maruta and Kato. Intent-aware Visualization Recommendation for Tabular Data. WISE 2021.
 
-## prediction visualizatoin type and visualized columns
+## Setup
+### Install git lfs and clone
+Git lfs is used because of large size file
 ```
-python demo.py
+brew install git-lfs
+git lfs clone https://github.com/kasys-lab/intent-viz.git
 ```
 
-## input data
+### Installation of Poetry (skip this step if Poetry has already been installed)
+```
+$ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+```
+### Installation of required Python packages
+```
+$ source ~/.bash_profile
+$ poetry install
+```
+## Prediction visualizatoin type and visualized columns for input data file
+```
+$ poerty run python demo.py <data path>
+$ poerty run python demo.py "./data/input_data.json"
+```
+
+### Input data
 json format pair data of a visualization intent and tabular data.
 ```
 {   "visualization_intent": "Population trends in Italy",
@@ -40,3 +58,15 @@ json format pair data of a visualization intent and tabular data.
     ]
 }
 ```
+### Output
+output visualuzation type and visualized column percent
+```
+predict visualization type : Line chart
+predict visualized columns percent
+header  :  percent
+Year  :  1.0
+population  :  0.9150764707515349
+GDP  :  0.0
+```
+
+
