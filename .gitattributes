@@ -1,2 +1,0 @@
-data/glove.6B.100d.txt filter=lfs diff=lfs merge=lfs -text
-saved_models/predict_viz_columns.pt filter=lfs diff=lfs merge=lfs -text
