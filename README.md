@@ -2,12 +2,20 @@
 Maruta and Kato. Intent-aware Visualization Recommendation for Tabular Data. WISE 2021.
 
 ## Setup
-### Install git lfs and clone
-Git lfs is used because of large size file
+Clone our repository
 ```
-brew install git-lfs
-git lfs clone https://github.com/kasys-lab/intent-viz.git
+git clone https://github.com/kasys-lab/intent-viz.git
 ```
+### Get large files
+Our model requires word embedding model and trained model
+#### Get word embedding model
+To get word embedding model, please access https://nlp.stanford.edu/projects/glove/ and download `glove.6B.zip`.
+
+And put `glove.6B.100d.txt` file in unzipped `glove.6B.zip` file to `data/`
+#### Get trained model
+To get trained model, please access https://drive.google.com/drive/folders/1G2WTiNGCOzu2W4E3IFB6WT62RJXJkFeZ?usp=sharing and download `predict_vis_columns.pt`.
+
+And put `predict_vis_columns.pt` to `saved_models/`
 
 ### Installation of Poetry (skip this step if Poetry has already been installed)
 ```
