@@ -11,13 +11,14 @@ cd intent-viz
 Our model requires word embedding model and trained model
 #### Download pre-trained word embedding vector
 To get word embedding model, please download `glove.6B.zip`.
+
+And put `glove.6B.100d.txt` file in unzipped `glove.6B.zip` file to `data/`.
 ```
 wget http://downloads.cs.stanford.edu/nlp/data/glove.6B.zip
 unzip glove.6B.zip
 mv glove.6B.100d.txt ./data/
 rm glove*
 ```
-And put `glove.6B.100d.txt` file in unzipped `glove.6B.zip` file to `data/`
 #### Download trained model
 To get trained model, please access https://drive.google.com/drive/folders/1G2WTiNGCOzu2W4E3IFB6WT62RJXJkFeZ?usp=sharing and download `predict_vis_columns.pt`.
 
@@ -32,7 +33,8 @@ $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-po
 $ source ~/.bash_profile
 $ poetry install
 ```
-## Prediction visualizatoin type and visualized columns for input data file
+## Prediction
+Predict a visualization type and visualized column percents
 ```
 $ poetry run python demo.py <data path>
 $ poetry run python demo.py "./data/input_data.json"
